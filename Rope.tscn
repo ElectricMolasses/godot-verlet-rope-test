@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://o4jy8qbwwqhn"]
+
+[ext_resource type="Script" uid="uid://cmpja7635iuit" path="res://rope.gd" id="1_1dgmm"]
+
+[node name="Rope" type="Node3D" unique_id=1325020126]
+script = ExtResource("1_1dgmm")

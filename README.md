@@ -4,4 +4,4 @@ A simple godot scene that implements (slightly incorrectly) verlet rope physics,
 
 The head and tail of the rope are controlled via two anchor Node3D's that you pass through the editor exports.
 
-<video src="https://github.com/ElectricMolasses/godot-verlet-rope-test/raw/refs/heads/main/_assets/rope_test.mp4"></video>
+<video src="https://raw.githubusercontent.com/ElectricMolasses/godot-verlet-rope-test/refs/heads/main/_assets/rope_test.mp4"></video>

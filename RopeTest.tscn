@@ -1,11 +1,20 @@
 [gd_scene format=3 uid="uid://dcj402frjrrpe"]
 
 [ext_resource type="PackedScene" uid="uid://o4jy8qbwwqhn" path="res://Rope.tscn" id="1_nu3sp"]
+[ext_resource type="Script" uid="uid://c14pukhspgd8i" path="res://head_anchor.gd" id="2_vfoak"]
 
 [node name="RopeTest" type="Node3D" unique_id=226722126]
 
-[node name="Rope" parent="." unique_id=1325020126 instance=ExtResource("1_nu3sp")]
+[node name="Rope" parent="." unique_id=1325020126 node_paths=PackedStringArray("head_anchor", "tail_anchor") instance=ExtResource("1_nu3sp")]
+head_anchor = NodePath("../HeadAnchor")
+tail_anchor = NodePath("../TailAnchor")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=705640877]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.0215898)
 current = true
+
+[node name="TailAnchor" type="Node3D" parent="." unique_id=55628698]
+
+[node name="HeadAnchor" type="Node3D" parent="." unique_id=768610128]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8692491, 0.9082887, 0)
+script = ExtResource("2_vfoak")

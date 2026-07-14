@@ -27,10 +27,10 @@ class VerletNode:
 		self.position = start_position
 		self.old_position = start_position
 
-func step_verlet(delta: float, node: VerletNode) -> void:
-	var temp: Vector2 = node.position
-	node.position += (node.position - node.old_position) + gravity * delta * delta
-	node.old_position = temp
+	func step(delta: float, gravity: Vector2) -> void:
+		var temp: Vector2 = self.position
+		self.position += (self.position - self.old_position) + gravity * delta * delta
+		self.old_position = temp
 
 func _ready() -> void:
 	nodes = []
@@ -58,7 +58,7 @@ func simulate(delta: float) -> void:
 	for i in nodes.size():
 		var node: VerletNode = nodes[i]
 
-		step_verlet(delta, node)
+		node.step(delta, gravity)
 
 func apply_constraints() -> void:
 	for i in nodes.size()-1:

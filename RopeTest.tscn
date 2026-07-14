@@ -8,6 +8,7 @@
 [node name="Rope" parent="." unique_id=1325020126 node_paths=PackedStringArray("head_anchor", "tail_anchor") instance=ExtResource("1_nu3sp")]
 head_anchor = NodePath("../HeadAnchor")
 tail_anchor = NodePath("../TailAnchor")
+total_nodes = 30
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=705640877]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.0215898)

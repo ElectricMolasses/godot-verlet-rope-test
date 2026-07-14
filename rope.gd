@@ -1,6 +1,10 @@
 class_name Rope extends Node3D
 ## z-position will just be wherever it's set on z in 3D space.
 
+@export var use_tail_anchor: bool = true
+
+@export var tail_anchor: Vector3 = Vector3(0, 0, 0)
+
 @export var draw_debug_lines: bool = true
 
 class VerletNode:
@@ -46,7 +50,10 @@ func _process(_delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	simulate(delta)
 	for _i in range(iterations):
-		apply_constraints()
+		if use_tail_anchor:
+			apply_constraints_with_tail_anchor()
+		else:
+			apply_constraints()
 
 func simulate(delta: float) -> void:
 	for i in nodes.size():
@@ -71,6 +78,40 @@ func apply_constraints() -> void:
 			var result = rope_plane.intersects_ray(origin, direction)
 
 			node_1.position = Vector2(result.x, result.y)
+
+		var diff_x: float = node_1.position.x - node_2.position.x		
+		var diff_y: float = node_1.position.y - node_2.position.y
+		var dist: float = node_1.position.distance_to(node_2.position)
+		var difference: float = 0.0
+
+		if (dist > 0):
+			difference = (node_distance - dist) / dist;
+
+		@warning_ignore("SHADOWED_VARIABLE_BASE_CLASS")
+		var translate: Vector2 = Vector2(diff_x, diff_y) * (0.5 * difference)
+
+		node_1.position += translate
+		node_2.position -= translate
+
+func apply_constraints_with_tail_anchor() -> void:
+	for i in nodes.size()-1:
+		var node_1: VerletNode = nodes[i]
+		var node_2: VerletNode = nodes[i + 1]
+
+		if i == 0 && Input.is_action_pressed("LeftClick"):
+			var viewport: Viewport = get_viewport()
+			var camera_3d: Camera3D = viewport.get_camera_3d()
+
+			var mouse_position = viewport.get_mouse_position()
+
+			var origin: Vector3 = camera_3d.project_ray_origin(mouse_position)
+			var direction: Vector3 = camera_3d.project_ray_normal(mouse_position)
+
+			var result = rope_plane.intersects_ray(origin, direction)
+
+			node_1.position = Vector2(result.x, result.y)
+		if i == nodes.size()-1-1:
+			node_2.position = Vector2(tail_anchor.x, tail_anchor.y)
 
 		var diff_x: float = node_1.position.x - node_2.position.x		
 		var diff_y: float = node_1.position.y - node_2.position.y
